@@ -1,0 +1,16 @@
+.hero-img {
+    max-width: 340px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    background: none !important;
+}
+.card-counter {
+    border-radius: 1rem;
+    border-width: 2px;
+}
+.hero-row {
+    gap: 48px;
+}

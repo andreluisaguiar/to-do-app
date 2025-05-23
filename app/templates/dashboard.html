@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - To-Do App{% endblock %}
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card border-primary shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-list-task"></i> Total de Tarefas</h5>
+                <p class="display-6 fw-bold text-primary">{{ tasks|length }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-success shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-check2-circle"></i> Concluídas</h5>
+                <p class="display-6 fw-bold text-success">{{ tasks|selectattr('done')|list|length }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-warning shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-hourglass-split"></i> Pendentes</h5>
+                <p class="display-6 fw-bold text-warning">{{ tasks|rejectattr('done')|list|length }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Formulário e lista de tarefas permanecem aqui -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">Adicionar Nova Tarefa</div>
+    <div class="card-body">
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="row g-3 align-items-center">
+                <div class="col-md-4">
+                    {{ form.title.label(class="form-label") }}
+                    {{ form.title(class="form-control") }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.description.label(class="form-label") }}
+                    {{ form.description(class="form-control") }}
+                </div>
+                <div class="col-md-2 mt-5">
+                    {{ form.submit(class="btn btn-success w-100") }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white">
+        Suas Tarefas
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for task in tasks %}
+        <li class="list-group-item d-flex align-items-center justify-content-between {% if task.done %}list-group-item-success{% endif %}">
+            <div>
+                <span class="{% if task.done %}text-decoration-line-through text-muted{% endif %}">{{ task.title }}</span>
+                {% if task.description %}<span class="small text-muted ms-2">{{ task.description }}</span>{% endif %}
+            </div>
+            <div>
+                <a href="{{ url_for('main.mark_done', task_id=task.id) }}" class="btn btn-outline-success btn-sm me-2" title="Concluir"><i class="bi bi-check2"></i></a>
+                <a href="{{ url_for('main.delete_task', task_id=task.id) }}" class="btn btn-outline-danger btn-sm" title="Excluir"><i class="bi bi-trash"></i></a>
+            </div>
+        </li>
+        {% else %}
+        <li class="list-group-item text-center text-muted">Sem tarefas no momento.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

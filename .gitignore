@@ -1,2 +1,33 @@
-venv
-env
+# Ambientes virtuais
+venv/
+env/
+ENV/
+
+# Arquivo de variáveis de ambiente
+.env
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de log
+*.log
+
+# Configurações de editor/IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Banco de dados SQLite (caso use)
+*.sqlite3
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Pastas de build Python
+build/
+dist/
+*.egg-info/

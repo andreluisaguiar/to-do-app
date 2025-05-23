@@ -4,3 +4,4 @@ from flask_migrate import upgrade
 app = create_app()
 app.app_context().push()
 upgrade()
+
